@@ -37,6 +37,8 @@ nnoremap <c-k> :bn<Cr>
 nnoremap <leader>s :source $MYVIMRC<Cr>
 nnoremap <leader>o o<ESC>
 nnoremap <leader>O O<ESC>
+"open last buffer in a vert split
+nnoremap <leader>w :bel vs bufname("#")<cr>
 " switch header and source
 nnoremap <c-h> :call CurtineIncSw()<CR>
 " preview markdown
@@ -86,9 +88,7 @@ augroup END
 " Comment ---------------------- {{{
 augroup comment
 	autocmd!
-	autocmd FileType cpp,c,h,hpp noremap <buffer> <leader>c I//<esc>
-	autocmd FileType yaml,cmake noremap <buffer> <leader>c I#<esc>
-	autocmd FileType vim noremap <buffer> <leader>c I"<esc>
+	autocmd FileType cpp,c,h,hpp setlocal commentstring=//\ %s
 augroup END
 " }}}
 
@@ -104,4 +104,3 @@ colorscheme everforest
 
 "You-complete-me
 let g:ycm_enable_semantic_highlighting = 1
-
