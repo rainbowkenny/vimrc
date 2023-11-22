@@ -43,6 +43,9 @@ nnoremap <leader>w :bel vs bufname("#")<cr>
 nnoremap <c-h> :call CurtineIncSw()<CR>
 " preview markdown
 nmap <C-s> <Plug>MarkdownPreview
+" grep under cursor
+nnoremap <leader>g :silent execute "grep! -R " . shellescape(expand("<cWORD>")) . " ."<cr>:copen<cr>:redraw!<cr>
+
 
 " }}}
 
