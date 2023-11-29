@@ -34,15 +34,38 @@ nnoremap <C-g> :Ag<Cr>
 nnoremap <silent><leader>b :Buffers<CR>
 nnoremap <c-j> :bp<Cr>
 nnoremap <c-k> :bn<Cr>
+"motion last/next parenthesis
+onoremap in( :<c-u>normal! f(vi(<cr>
+onoremap il( :<c-u>normal! F)vi(<cr>
+"select function name
+onoremap <silent> F :<C-U>normal! 0f(hviw<CR>
+
+nnoremap <leader>v :e $MYVIMRC<Cr>
 nnoremap <leader>s :source $MYVIMRC<Cr>
 nnoremap <leader>o o<ESC>
 nnoremap <leader>O O<ESC>
+
+" save file
+noremap <C-s> :w<cr>
+inoremap <C-s> <esc>:w<cr>
+"open a terminal
+nnoremap <s-t> :vert term<cr>
+
+"run test
+nnoremap <C-t> :!./tests/mainboard_tests<cr>
+
+" git blame
+nnoremap <leader>gb :Git blame<ESC>
 "open last buffer in a vert split
 nnoremap <leader>w :bel vs bufname("#")<cr>
 " switch header and source
 nnoremap <c-h> :call CurtineIncSw()<CR>
 " preview markdown
-nmap <C-s> <Plug>MarkdownPreview
+nmap <C-m> <Plug>MarkdownPreview
+" enclose selection with parenthesis
+vnoremap <c-p> c()<ESC>P
+" enclose selection with brackets
+vnoremap <c-b> c{}<ESC>P
 " grep under cursor
 nnoremap <leader>g :silent execute "grep! -R " . shellescape(expand("<cWORD>")) . " ."<cr>:copen<cr>:redraw!<cr>
 
@@ -62,6 +85,9 @@ Plug 'chiel92/vim-autoformat'
 Plug 'ericcurtin/CurtineIncSw.vim'
 Plug 'tpope/vim-commentary'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+Plug 'aklt/plantuml-syntax'
+Plug 'weirongxu/plantuml-previewer.vim'
+Plug 'tyru/open-browser.vim'
 call plug#end()
 "   filetype indent off   " Disable file-type-specific indentation
 "   syntax off            " Disable syntax highlighting
