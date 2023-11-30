@@ -55,7 +55,9 @@ nnoremap <s-t> :vert term<cr>
 nnoremap <C-t> :!./tests/mainboard_tests<cr>
 
 " git blame
-nnoremap <leader>gb :Git blame<ESC>
+nnoremap <leader>gb :Git blame<cr>
+" git add current file
+nnoremap <leader>a :execute "Git add %\|echom @% . ' staged'"<cr>
 "open last buffer in a vert split
 nnoremap <leader>w :bel vs bufname("#")<cr>
 " switch header and source
@@ -66,8 +68,15 @@ nmap <C-m> <Plug>MarkdownPreview
 vnoremap <c-p> c()<ESC>P
 " enclose selection with brackets
 vnoremap <c-b> c{}<ESC>P
+
+"replace the current visual mode selection to something else
+vnoremap <leader>r y<ESC>:.,$s/<c-r>0/
 " grep under cursor
-nnoremap <leader>g :silent execute "grep! -R " . shellescape(expand("<cWORD>")) . " ."<cr>:copen<cr>:redraw!<cr>
+" nnoremap <leader>g :silent execute "grep! -R " . shellescape(expand("<cWORD>")) . " ."<cr>:copen<cr>:redraw!<cr>
+
+"paste last TEST case
+noremap <leader>pt :?TEST(<cr>"2yy"3ya{%o<esc>Go<esc>"2pf{x"3pF,wzz:nohls<cr>
+
 
 
 " }}}
