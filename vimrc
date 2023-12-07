@@ -34,6 +34,7 @@ nnoremap <C-g> :Ag<Cr>
 nnoremap <silent><leader>b :Buffers<CR>
 nnoremap <c-j> :bp<Cr>
 nnoremap <c-k> :bn<Cr>
+nnoremap <leader>mt :tabnew %<cr>
 "motion last/next parenthesis
 onoremap in( :<c-u>normal! f(vi(<cr>
 onoremap il( :<c-u>normal! F)vi(<cr>
@@ -41,15 +42,19 @@ onoremap il( :<c-u>normal! F)vi(<cr>
 onoremap <silent> F :<C-U>normal! 0f(hviw<CR>
 
 nnoremap <leader>v :e $MYVIMRC<Cr>
+"source stuff
 nnoremap <leader>s :source $MYVIMRC<Cr>
+nnoremap <s-s> :so%<cr>
+
 nnoremap <leader>o o<ESC>
 nnoremap <leader>O O<ESC>
-
+"paste
+inoremap <C-v> <c-r>"
 " save file
 noremap <C-s> :w<cr>
 inoremap <C-s> <esc>:w<cr>
 "open a terminal
-nnoremap <s-t> :vert term<cr>
+nnoremap <s-t> :vert term ++kill=term<cr>
 
 "run test
 nnoremap <C-t> :!./tests/mainboard_tests<cr>
@@ -97,6 +102,8 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 
 Plug 'aklt/plantuml-syntax'
 Plug 'weirongxu/plantuml-previewer.vim'
 Plug 'tyru/open-browser.vim'
+Plug 'jiangmiao/auto-pairs'
+
 call plug#end()
 "   filetype indent off   " Disable file-type-specific indentation
 "   syntax off            " Disable syntax highlighting
@@ -112,7 +119,6 @@ let g:autoformat_retab = 1
 let g:autoformat_remove_trailing_spaces = 1
 noremap <F3> :Autoformat<CR>
 " }}}
-
 " Vimscript file settings ---------------------- {{{
 augroup general
 	autocmd!
@@ -142,3 +148,14 @@ colorscheme everforest
 
 "You-complete-me
 let g:ycm_enable_semantic_highlighting = 1
+
+" enable meta/alt key ---------------------- {{{
+let c='a'
+while c <= 'z'
+  exec "set <A-".c.">=\e".c
+  exec "imap \e".c." <A-".c.">"
+  let c = nr2char(1+char2nr(c))
+endw
+
+set timeout ttimeoutlen=50
+" }}}
