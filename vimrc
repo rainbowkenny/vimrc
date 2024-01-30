@@ -97,6 +97,12 @@ noremap <leader>pt :?TEST(<cr>"2yy"3ya{%o<esc>Go<esc>"2pf{x"3pF,wzz:nohls<cr>
 "paste current file's path
 nnoremap <leader>yp :let @@=expand('%:p')<CR>
 
+"You complete me
+nnoremap gd :YcmCompleter GoToDefinition<CR>
+nnoremap gr :YcmCompleter GoToReferences<CR>
+nnoremap gi :YcmCompleter GoToInclude<CR>
+
+
 " }}}
 
 " Plugins ---------------------- {{{
