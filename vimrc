@@ -29,8 +29,10 @@ let g:termdebug_wide=1
 
 " Key mappings --------------------- {{{
 inoremap jk <esc>
+nnoremap 0 ^
 nnoremap <C-p> :Files<Cr>
 nnoremap <C-g> :Ag<Cr>
+nnoremap <leader>c :History:<cr>
 nnoremap <silent><leader>b :Buffers<CR>
 nnoremap <c-j> :bp<Cr>
 nnoremap <c-k> :bn<Cr>
@@ -39,17 +41,27 @@ nnoremap <leader>mt :tabnew %<cr>
 onoremap in( :<c-u>normal! f(vi(<cr>
 onoremap il( :<c-u>normal! F)vi(<cr>
 "select function name
-onoremap <silent> F :<C-U>normal! 0f(hviw<CR>
+onoremap <silent> <leader>F :<C-U>normal! 0f(hviw<CR>
+"till next capital letter, doesn't work in visual mode
+onoremap <silent> <leader>K /\u<cr>
 
-nnoremap <leader>v :e $MYVIMRC<Cr>
+noremap <leader>h :nohls<cr>
+noremap <leader>v :e $MYVIMRC<Cr>
 "source stuff
 nnoremap <leader>s :source $MYVIMRC<Cr>
 nnoremap <s-s> :so%<cr>
-
+"new line normal mode
 nnoremap <leader>o o<ESC>
 nnoremap <leader>O O<ESC>
 "paste
 inoremap <C-v> <c-r>"
+
+"change to reference or pointer  
+inoremap <leader>tr <esc>diwi&<c-r>"
+inoremap <leader>tp <esc>diwi*<c-r>"
+
+"delete eol comments
+nnoremap <leader>dc 0f/D
 " save file
 noremap <C-s> :w<cr>
 inoremap <C-s> <esc>:w<cr>
@@ -68,7 +80,7 @@ nnoremap <leader>w :bel vs bufname("#")<cr>
 " switch header and source
 nnoremap <c-h> :call CurtineIncSw()<CR>
 " preview markdown
-nmap <C-m> <Plug>MarkdownPreview
+nnoremap <C-m> <Plug>MarkdownPreview
 " enclose selection with parenthesis
 vnoremap <c-p> c()<ESC>P
 " enclose selection with brackets
@@ -82,7 +94,8 @@ vnoremap <leader>r y<ESC>:.,$s/<c-r>0/
 "paste last TEST case
 noremap <leader>pt :?TEST(<cr>"2yy"3ya{%o<esc>Go<esc>"2pf{x"3pF,wzz:nohls<cr>
 
-
+"paste current file's path
+nnoremap <leader>yp :let @@=expand('%:p')<CR>
 
 " }}}
 
@@ -103,6 +116,7 @@ Plug 'aklt/plantuml-syntax'
 Plug 'weirongxu/plantuml-previewer.vim'
 Plug 'tyru/open-browser.vim'
 Plug 'jiangmiao/auto-pairs'
+Plug 'drmikehenry/vim-headerguard'
 
 call plug#end()
 "   filetype indent off   " Disable file-type-specific indentation
@@ -136,11 +150,18 @@ augroup comment
 augroup END
 " }}}
 
+" Fix enter in quickfix---------------------- {{{
+augroup qfixEntry
+	autocmd!
+	autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
+augroup END
+" }}}
 " Color scheme ---------------------- {{{
 if has('termguicolors')
   set termguicolors
 endif
 set background=dark
+" set background=light
 let g:everforest_background = 'hard'
 let g:everforest_better_performance = 1
 colorscheme everforest
