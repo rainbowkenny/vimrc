@@ -13,6 +13,7 @@ set wildignore=*/CMakeFiles/*
 set ignorecase
 set shortmess-=S
 set relativenumber
+set nocompatible
 " }}}
 
 "Statusline --------------------- {{{
@@ -69,7 +70,8 @@ inoremap <C-s> <esc>:w<cr>
 nnoremap <s-t> :vert term ++kill=term<cr>
 
 "run test
-nnoremap <C-t> :!./tests/mainboard_tests<cr>
+" nnoremap <C-t> :!./tests/mainboard_tests<cr>
+nnoremap <C-t> :!./build/cppunittests<cr>
 
 " git blame
 nnoremap <leader>gb :Git blame<cr>
@@ -123,6 +125,12 @@ Plug 'weirongxu/plantuml-previewer.vim'
 Plug 'tyru/open-browser.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'drmikehenry/vim-headerguard'
+Plug 'apalmer1377/factorus'
+Plug 'CoderCookE/vim-chatgpt'
+Plug 'tmhedberg/SimpylFold'
+Plug 'jmckiern/vim-shoot', { 'do': '\"./install.py\" geckodriver' }
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
 
 call plug#end()
 "   filetype indent off   " Disable file-type-specific indentation
