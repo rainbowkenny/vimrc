@@ -174,6 +174,7 @@ augroup END
 if has('termguicolors')
   set termguicolors
 endif
+set t_Co=256
 set background=dark
 " set background=light
 let g:everforest_background = 'hard'
